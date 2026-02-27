@@ -1,30 +1,32 @@
 <!DOCTYPE html>
 <html>
 <head>
-    <title>Valve Bypass Calculator</title>
-    <meta charset="UTF-8">
-    <link rel="stylesheet" href="style.css">
+  <title>Valve Bypass Calculator</title>
+  <meta charset="UTF-8">
+  <link rel="stylesheet" href="style.css">
 </head>
-
 <body>
+  <h1>Valve Bypass Calculator</h1>
 
-<h1>Valve Bypass Calculator</h1>
+  <div class="card">
+    <label>Total Machines (N):</label>
+    <input id="machines" type="number" min="1" step="1" value="5">
 
-<div class="card">
+    <label>Source is between machine L and R</label>
+    <div style="display:flex; gap:10px; justify-content:center; align-items:center;">
+      <input id="L" type="number" min="0" step="1" value="2" style="width:90px;">
+      <span>and</span>
+      <input id="R" type="number" min="1" step="1" value="3" style="width:90px;">
+    </div>
 
-    <label>Total Machines:</label>
-    <input id="machines" type="number">
-
-    <label>Machines in Bypass:</label>
-    <input id="bypass" type="number">
+    <label>Round decimals:</label>
+    <input id="decimals" type="number" min="0" max="9" step="1" value="3">
 
     <button onclick="calculate()">Calculate</button>
 
-    <h2 id="result">Result: ---</h2>
+    <pre id="result" class="resultBox">Result will appear here...</pre>
+  </div>
 
-</div>
-
-<script src="app.js"></script>
-
+  <script src="app.js"></script>
 </body>
 </html>
