@@ -2,25 +2,35 @@
 <html>
 <head>
   <title>Valve Bypass Calculator</title>
-  <meta charset="UTF-8">
-  <link rel="stylesheet" href="style.css">
+  <meta charset="UTF-8" />
+  <link rel="stylesheet" href="style.css" />
 </head>
 <body>
   <h1>Valve Bypass Calculator</h1>
 
   <div class="card">
     <label>Total Machines (N):</label>
-    <input id="machines" type="number" min="1" step="1" value="5">
+    <input id="machines" type="number" min="1" step="1" value="8" />
 
-    <label>Source is between machine L and R</label>
-    <div style="display:flex; gap:10px; justify-content:center; align-items:center;">
-      <input id="L" type="number" min="0" step="1" value="2" style="width:90px;">
-      <span>and</span>
-      <input id="R" type="number" min="1" step="1" value="3" style="width:90px;">
+    <label>Source between machine L and L+1 (L = machines on the left):</label>
+    <input id="L" type="number" min="0" step="1" value="3" />
+
+    <div class="row">
+      <label><input id="optAsym" type="checkbox" checked /> Asymmetric start (Algorithm 2)</label>
     </div>
 
-    <label>Round decimals:</label>
-    <input id="decimals" type="number" min="0" max="9" step="1" value="3">
+    <div class="row">
+      <label><input id="optUnequal" type="checkbox" checked /> Unequal consumption rates (Algorithm 3)</label>
+    </div>
+
+    <div id="ratesBox" style="display:none; margin-top:12px;">
+      <p style="margin:8px 0 6px;">Machine consumption rates (comma-separated, length N):</p>
+      <input id="rates" type="text" value="1,2,1,1,2,1,2,1" />
+      <small>Example: 1,2,1,1,2,1,2,1</small>
+    </div>
+
+    <label style="margin-top:14px;">Round decimals:</label>
+    <input id="decimals" type="number" min="0" max="9" step="1" value="3" />
 
     <button onclick="calculate()">Calculate</button>
 
