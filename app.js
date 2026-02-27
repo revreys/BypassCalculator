@@ -136,15 +136,38 @@ function calculate() {
   }
 }
 
-// Show/hide rates input when checkbox changes
+// ================= UI CONTROLLER =================
+
 document.addEventListener("DOMContentLoaded", () => {
-  const optUnequal = document.getElementById("optUnequal");
+
+  const asym = document.getElementById("optAsym");
+  const unequal = document.getElementById("optUnequal");
+
+  const asymBox = document.getElementById("asymBox");
   const ratesBox = document.getElementById("ratesBox");
 
-  function refresh() {
-    ratesBox.style.display = optUnequal.checked ? "block" : "none";
+  function updateUI() {
+
+    // Asymmetric toggle (Algorithm 2)
+    if (asym.checked) {
+      asymBox.style.display = "block";
+    } else {
+      asymBox.style.display = "none";
+    }
+
+    // Unequal rates toggle (Algorithm 3)
+    if (unequal.checked) {
+      ratesBox.style.display = "block";
+    } else {
+      ratesBox.style.display = "none";
+    }
   }
 
-  optUnequal.addEventListener("change", refresh);
-  refresh();
+  // initialize page correctly
+  updateUI();
+
+  // react to user clicks
+  asym.addEventListener("change", updateUI);
+  unequal.addEventListener("change", updateUI);
+
 });
