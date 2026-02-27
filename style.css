@@ -34,3 +34,14 @@ button {
 button:hover {
     background: #45a049;
 }
+
+.resultBox{
+  margin-top: 18px;
+  text-align: left;
+  background: #151515;
+  padding: 16px;
+  border-radius: 10px;
+  width: min(720px, 80vw);
+  overflow-x: auto;
+  white-space: pre;
+}
