@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Valve Bypass Calculator</title>
+  <link rel="stylesheet" href="styles/style.css" />
+</head>
+<body>
+  <header class="topbar">
+    <div class="title-row">
+      <img src="assets/icons/calculatoricon.svg" alt="" class="inline-icon" />
+      <h1>valve bypass calculator</h1>
+    </div>
+    <div class="top-right">
+      <div class="credit">created by revrey</div>
+      <div class="link-list">
+        <a id="youtubeLink" href="https://www.youtube.com/@neuroticzombie" target="_blank" rel="noopener noreferrer" class="ext-link">
+          <img src="assets/icons/linkicon.svg" alt="" class="inline-icon" />
+          <span>youtube</span>
+        </a>
+        <a id="sourceLink" href="https://github.com/revreys/BypassCalculator" target="_blank" rel="noopener noreferrer" class="ext-link">
+          <img src="assets/icons/linkicon.svg" alt="" class="inline-icon" />
+          <span>source code</span>
+        </a>
+      </div>
+    </div>
+  </header>
+
+  <button id="instructionsBtn" class="instructions-trigger" type="button">
+    <img src="assets/icons/infoicon.svg" alt="" class="inline-icon" />
+    <span>instructions</span>
+  </button>
+
+  <main class="content-grid">
+    <section class="left-panel">
+      <aside id="instructionsPanel" class="panel instructions-panel" hidden>
+        <p>asymmetric start should be on if the item source doesn't start with the first machine</p>
+        <p>variable machine rates should be on if multiple machines are taking in the same item with different consumption rates</p>
+        <p>source start is the number L where the source start is between L and L+1</p>
+        <p>when entering the consumption rates, simply press enter after each one to quickly move you to the next machine, and press backspace when the box is empty to move you to the previous machine</p>
+      </aside>
+    </section>
+
+    <section class="center-panel">
+      <div class="field-row">
+        <label for="decimals">round decimals :</label>
+        <input id="decimals" class="tiny-input" type="number" min="0" max="9" step="1" value="3" />
+
+        <label for="L">source start :</label>
+        <input id="L" class="tiny-input" type="number" min="0" step="1" value="4" />
+      </div>
+
+      <div class="field-row">
+        <label for="machines">total machines :</label>
+        <input id="machines" class="tiny-input" type="number" min="1" step="1" value="12" />
+      </div>
+
+      <div class="toggle-row">
+        <button id="asymToggleBtn" class="toggle-button" type="button" aria-pressed="true">
+          <span>asymmetric start</span>
+          <img id="asymToggleIcon" src="assets/icons/toggleon.svg" alt="" class="toggle-icon" />
+        </button>
+        <button id="unequalToggleBtn" class="toggle-button" type="button" aria-pressed="true">
+          <span>variable machine rates</span>
+          <img id="unequalToggleIcon" src="assets/icons/toggleon.svg" alt="" class="toggle-icon" />
+        </button>
+      </div>
+
+      <section id="ratesBox" class="rates-wrap">
+        <label>machine consumption rates (one per machine):</label>
+        <div id="rateInputs" class="rates-grid"></div>
+      </section>
+
+      <button class="calculate-link" onclick="calculate()" type="button">
+        <span>calculate</span>
+        <span class="circle-eq">=</span>
+      </button>
+
+      <pre id="result" class="panel output-panel">Result will appear here...</pre>
+    </section>
+
+    <section class="right-panel">
+      <pre id="resultMirror" class="panel result-panel">results:</pre>
+    </section>
+  </main>
+
+  <script src="scripts/app.js"></script>
+</body>
+</html>

@@ -1,0 +1,14 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width="24" height="24" fill="none">
+  <g data-name="Layer 2">
+    <path d="M18.5 22.75h-13a2.25 2.25 0 0 1-2.25-2.25v-17A2.25 2.25 0 0 1 5.5 1.25h13a2.25 2.25 0 0 1 2.25 2.25v17a2.25 2.25 0 0 1-2.25 2.25zm-13-20a.75.75 0 0 0-.75.75v17a.75.75 0 0 0 .75.75h13a.75.75 0 0 0 .75-.75v-17a.75.75 0 0 0-.75-.75z" fill="#ffffff"/>
+    <path d="M17 9.75H7A.76.76 0 0 1 6.25 9V5A.75.75 0 0 1 7 4.25h10a.75.75 0 0 1 .75.75v4a.76.76 0 0 1-.75.75zm-9.25-1.5h8.5v-2.5h-8.5z" fill="#ffffff"/>
+    <circle cx="8" cy="12.5" r="1" fill="#ffffff"/>
+    <circle cx="12" cy="12.5" r="1" fill="#ffffff"/>
+    <circle cx="16" cy="12.5" r="1" fill="#ffffff"/>
+    <circle cx="8" cy="15.5" r="1" fill="#ffffff"/>
+    <circle cx="12" cy="15.5" r="1" fill="#ffffff"/>
+    <circle cx="8" cy="18.5" r="1" fill="#ffffff"/>
+    <circle cx="12" cy="18.5" r="1" fill="#ffffff"/>
+    <path d="M16 19.5a.76.76 0 0 1-.75-.75v-3.5a.75.75 0 0 1 1.5 0v3.5a.76.76 0 0 1-.75.75z" fill="#ffffff"/>
+  </g>
+</svg>
