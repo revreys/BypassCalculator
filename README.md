@@ -8,22 +8,18 @@ it supports:
 - split-valve calculations for asymmetric layouts
 - keyboard-friendly machine rate input flow
 
-## project structure
-
-- `src/index.html` main page
-- `src/styles/style.css` ui styling
-- `src/scripts/app.js` calculator logic and ui behavior
-- `src/assets/icons/` svg icons used by the ui
-- `src/assets/fonts/` mona sans fonts
-
 ## how to run
 
-### option 1: open directly
+### option 1: open from github page
+
+1. open 'https://revreys.github.io/BypassCalculator/src/index.html' in your browser
+
+### option 2: open directly
 
 1. go to `src/`
 2. open `index.html` in your browser
 
-### option 2: local server (recommended)
+### option 3: local server (recommended)
 
 using a local server avoids browser restrictions in some setups.
 
@@ -36,14 +32,15 @@ python -m http.server 8000
 
 then open `http://localhost:8000`.
 
+## project structure
+
+- `src/index.html` main page
+- `src/styles/style.css` ui styling
+- `src/scripts/app.js` calculator logic and ui behavior
+- `src/assets/icons/` svg icons used by the ui
+- `src/assets/fonts/` mona sans fonts
+
 ## how to use the calculator
-
-### top bar links
-
-- click `youtube` (icon or text) to open: `https://www.youtube.com/@neuroticzombie`
-- click `source code` (icon or text) to open: `https://github.com/revreys/BypassCalculator`
-
-both open in a new tab.
 
 ### instructions panel
 
