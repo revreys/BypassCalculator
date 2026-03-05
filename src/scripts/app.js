@@ -223,7 +223,8 @@ function calculate() {
     c1 = roundTo((rightSum / total) * 100, decimals);
   }
 
-  const leftRates = uiState.unequal ? rates.slice(0, leftCount) : null;
+  // Left branch flows away from the split toward machine 1, so solve it from L..1.
+  const leftRates = uiState.unequal ? rates.slice(0, leftCount).reverse() : null;
   const rightRates = uiState.unequal ? rates.slice(leftCount) : null;
 
   const leftList = solveSide(leftCount, leftRates);
@@ -243,7 +244,7 @@ function calculate() {
     });
   }
 
-  resultText += `\nOTHER PIPELINE (LEFT, machines 1..${leftCount})\n`;
+  resultText += `\nOTHER PIPELINE (LEFT, machines ${leftCount}..1)\n`;
   if (leftList.length === 0) {
     resultText += "(none)\n";
   } else {
