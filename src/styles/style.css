@@ -234,7 +234,12 @@ body {
 }
 
 .instructions-panel {
-  min-height: 284px;
+  position: fixed;
+  z-index: 1000;
+  min-height: 0;
+  width: min(390px, calc(100vw - 32px));
+  max-height: min(70vh, 520px);
+  overflow-y: auto;
   padding-top: 4px;
   white-space: normal;
 }
@@ -259,6 +264,11 @@ body {
 .result-panel {
   margin: 0;
   min-height: 410px;
+}
+
+.copyable-value {
+  cursor: pointer;
+  text-decoration: underline dotted;
 }
 
 input[type="number"]::-webkit-inner-spin-button,

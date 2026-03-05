@@ -39,9 +39,70 @@ function linearUnequal(rates, decimals) {
 }
 
 const uiState = {
-  asym: true,
-  unequal: true
+  asym: false,
+  unequal: false
 };
+
+function escapeHtml(text) {
+  return text
+    .replace(/&/g, "&amp;")
+    .replace(/</g, "&lt;")
+    .replace(/>/g, "&gt;")
+    .replace(/"/g, "&quot;")
+    .replace(/'/g, "&#39;");
+}
+
+function copyTextToClipboard(text) {
+  if (navigator.clipboard && navigator.clipboard.writeText) {
+    return navigator.clipboard.writeText(text);
+  }
+
+  return new Promise((resolve, reject) => {
+    const temp = document.createElement("textarea");
+    temp.value = text;
+    temp.setAttribute("readonly", "");
+    temp.style.position = "absolute";
+    temp.style.left = "-9999px";
+    document.body.appendChild(temp);
+    temp.select();
+    try {
+      const ok = document.execCommand("copy");
+      document.body.removeChild(temp);
+      if (ok) resolve();
+      else reject(new Error("Copy command failed"));
+    } catch (err) {
+      document.body.removeChild(temp);
+      reject(err);
+    }
+  });
+}
+
+function renderResultsWithCopy(text) {
+  const results = document.getElementById("resultMirror");
+  if (!results) return;
+
+  const lines = text.split("\n");
+  const htmlLines = lines.map((line) => {
+    const match = line.match(/^(C\d+\s*=\s*)([-+]?\d*\.?\d+(?:[eE][-+]?\d+)?)(.*)$/);
+    if (!match) return escapeHtml(line);
+
+    const left = escapeHtml(match[1]);
+    const value = match[2];
+    const trailing = escapeHtml(match[3]);
+    const safeValue = escapeHtml(value);
+    return `${left}<span class="copyable-value" data-copy="${safeValue}" title="Click to copy ${safeValue}">${safeValue}</span>${trailing}`;
+  });
+
+  results.innerHTML = htmlLines.join("\n");
+  const copyNodes = results.querySelectorAll(".copyable-value");
+  copyNodes.forEach((node) => {
+    node.addEventListener("click", () => {
+      const value = node.getAttribute("data-copy");
+      if (!value) return;
+      copyTextToClipboard(value).catch(() => {});
+    });
+  });
+}
 
 function updateToggleIcon(id, on) {
   const icon = document.getElementById(id);
@@ -138,7 +199,9 @@ function updateUI() {
 
 function calculate() {
   const userEntered = document.getElementById("result");
-  const results = document.getElementById("resultMirror");
+  const setResultsText = (text) => {
+    renderResultsWithCopy(text);
+  };
 
   const N = parseInt(document.getElementById("machines").value, 10);
   const decimals = Math.max(
@@ -149,7 +212,7 @@ function calculate() {
   if (!Number.isFinite(N) || N <= 0) {
     const err = "Invalid total machines (must be > 0).";
     userEntered.textContent = err;
-    results.textContent = "results:\n\n" + err;
+    setResultsText("results:\n\n" + err);
     return;
   }
 
@@ -159,7 +222,7 @@ function calculate() {
   if (uiState.asym && (L < 0 || L > N)) {
     const err = "Invalid source start L (must be between 0 and N).";
     userEntered.textContent = err;
-    results.textContent = "results:\n\n" + err;
+    setResultsText("results:\n\n" + err);
     return;
   }
 
@@ -169,7 +232,7 @@ function calculate() {
     if (!rates) {
       const err = "Invalid rates. Enter one non-negative value per machine and total > 0.";
       userEntered.textContent = err;
-      results.textContent = "results:\n\n" + err;
+      setResultsText("results:\n\n" + err);
       return;
     }
   }
@@ -207,7 +270,7 @@ function calculate() {
     });
 
     userEntered.textContent = userText;
-    results.textContent = resultText.trimEnd();
+    setResultsText(resultText.trimEnd());
     return;
   }
 
@@ -255,7 +318,7 @@ function calculate() {
   }
 
   userEntered.textContent = userText;
-  results.textContent = resultText.trimEnd();
+  setResultsText(resultText.trimEnd());
 }
 
 document.addEventListener("DOMContentLoaded", () => {
@@ -264,9 +327,32 @@ document.addEventListener("DOMContentLoaded", () => {
   const asymToggleBtn = document.getElementById("asymToggleBtn");
   const unequalToggleBtn = document.getElementById("unequalToggleBtn");
   const machines = document.getElementById("machines");
+  const resultMirror = document.getElementById("resultMirror");
+
+  function positionInstructionsPanel() {
+    const viewportPadding = 16;
+    const gapBelowButton = 8;
+    const btnRect = instructionsBtn.getBoundingClientRect();
+    const panelWidth = Math.min(390, Math.max(220, window.innerWidth - viewportPadding * 2));
+    const maxLeft = window.innerWidth - panelWidth - viewportPadding;
+    const left = Math.max(viewportPadding, Math.min(btnRect.left, maxLeft));
+
+    instructionsPanel.style.width = `${panelWidth}px`;
+    instructionsPanel.style.left = `${left}px`;
+    instructionsPanel.style.top = `${btnRect.bottom + gapBelowButton}px`;
+  }
 
   instructionsBtn.addEventListener("click", () => {
     instructionsPanel.hidden = !instructionsPanel.hidden;
+    if (!instructionsPanel.hidden) {
+      positionInstructionsPanel();
+    }
+  });
+
+  window.addEventListener("resize", () => {
+    if (!instructionsPanel.hidden) {
+      positionInstructionsPanel();
+    }
   });
 
   asymToggleBtn.addEventListener("click", () => {
@@ -282,6 +368,10 @@ document.addEventListener("DOMContentLoaded", () => {
   machines.addEventListener("input", () => {
     updateUI();
   });
+
+  if (resultMirror) {
+    renderResultsWithCopy(resultMirror.textContent || "");
+  }
 
   updateUI();
 });
